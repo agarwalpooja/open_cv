@@ -1,0 +1,27 @@
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+img = cv.imread('j.png')
+kernel = np.ones((7,5),np.float32)/25
+dst = cv.filter2D(img,-1,kernel)
+blur = cv.blur(img,(5,5))
+blur2 = cv.GaussianBlur(img,(5,5),0)
+blur3 = cv.medianBlur(img,5)
+e1 = cv.getTickCount()
+blur4= cv.bilateralFilter(img,5,15,15)
+e2= cv.getTickCount()
+f= (e2-e1)/cv.getTickFrequency()
+plt.subplot(231),plt.imshow(img),plt.title('Original')
+plt.xticks([]), plt.yticks([])
+plt.subplot(232),plt.imshow(dst),plt.title('Averaging')
+plt.xticks([]), plt.yticks([])
+plt.subplot(233),plt.imshow(blur),plt.title('blur')
+plt.xticks([]), plt.yticks([])
+plt.subplot(234),plt.imshow(blur2),plt.title('gaussian blur')
+plt.xticks([]), plt.yticks([])
+plt.subplot(235),plt.imshow(blur3),plt.title('median blur')
+plt.xticks([]), plt.yticks([])
+plt.subplot(236),plt.imshow(blur4),plt.title('bilateral blur')
+plt.xticks([]), plt.yticks([])
+plt.show() 
+print(f)
