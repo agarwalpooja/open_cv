@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue May 29 20:53:43 2018
+
+@author: ASUS
+"""
+
+import numpy as np
+import cv2 as cv
+import matplotlib.pyplot as plt
+cap = cv.VideoCapture(0)
+# Define the codec and create VideoWriter object
+fourcc = cv.VideoWriter_fourcc(*'XVID')
+out = cv.VideoWriter('output.avi',fourcc, 20.0, (640,480))
+while(cap.isOpened()):
+    ret, frame = cap.read()
+    if ret == True:
+        frame = cv.flip(frame,0)
+        
+        # write the flipped frame
+        out.write(frame)
+        plt.imshow(frame)
+        plt.show()
+    else:
+        break
+# Release everything if job is finished
+cap.release()
+out.release()
